@@ -15,10 +15,10 @@ export class VaultOSSettingTab extends PluginSettingTab {
     containerEl.empty();
 
     new Setting(containerEl)
-      .setName('VaultOS Configuration')
+      .setName('General')
       .setHeading();
 
-    // ── General Settings ──────────────────────────────────
+    // ── General ───────────────────────────────────────────
     new Setting(containerEl)
       .setName('Dashboard Title')
       .setDesc('Title displayed in the executive header.')
@@ -59,7 +59,7 @@ export class VaultOSSettingTab extends PluginSettingTab {
 
     // ── AI Engine Provider ────────────────────────────────
     new Setting(containerEl)
-      .setName('AI Engine Settings')
+      .setName('AI engine')
       .setHeading();
 
     new Setting(containerEl)
