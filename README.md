@@ -7,6 +7,8 @@ A customizable bento dashboard, workspace telemetry, and multi-model AI assistan
 
 VaultOS adds a dashboard homepage to your vault. It displays your notes, active projects, open tasks, and quick navigation in a clean bento layout, with an integrated AI assistant supporting Gemini, Claude, OpenAI, and local Ollama models.
 
+![VaultOS Bento Dashboard Overview](./screenshot_1280x800.svg)
+
 ---
 
 ## Features

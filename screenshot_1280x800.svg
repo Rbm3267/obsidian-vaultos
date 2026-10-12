@@ -1,0 +1,207 @@
+<svg width="1280" height="800" viewBox="0 0 1280 800" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <!-- Background Gradients -->
+    <linearGradient id="vo-bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#070c18"/>
+      <stop offset="50%" stop-color="#0b1325"/>
+      <stop offset="100%" stop-color="#060a14"/>
+    </linearGradient>
+    <linearGradient id="card-grad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#111d38" stop-opacity="0.75"/>
+      <stop offset="100%" stop-color="#0b1426" stop-opacity="0.85"/>
+    </linearGradient>
+    <linearGradient id="emerald-glow" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#10b981"/>
+      <stop offset="100%" stop-color="#059669"/>
+    </linearGradient>
+    <linearGradient id="cyan-glow" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#38bdf8"/>
+      <stop offset="100%" stop-color="#0284c7"/>
+    </linearGradient>
+    <linearGradient id="purple-glow" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#a78bfa"/>
+      <stop offset="100%" stop-color="#7c3aed"/>
+    </linearGradient>
+    <filter id="soft-shadow" x="-8%" y="-8%" width="116%" height="116%" filterUnits="userSpaceOnUse">
+      <feDropShadow dx="0" dy="12" stdDeviation="16" flood-color="#000000" flood-opacity="0.5"/>
+    </filter>
+  </defs>
+
+  <!-- Canvas Background -->
+  <rect width="1280" height="800" fill="url(#vo-bg)"/>
+
+  <!-- Subtle Ambient Glows -->
+  <circle cx="200" cy="120" r="280" fill="#10b981" opacity="0.06" filter="blur(60px)"/>
+  <circle cx="1080" cy="200" r="320" fill="#38bdf8" opacity="0.06" filter="blur(70px)"/>
+
+  <!-- Obsidian Window Frame -->
+  <g filter="url(#soft-shadow)">
+    <!-- Window Outer Shell -->
+    <rect x="40" y="30" width="1200" height="740" rx="16" fill="#090e1c" stroke="rgba(255,255,255,0.08)" stroke-width="1.5"/>
+
+    <!-- Window Title Bar -->
+    <rect x="40" y="30" width="1200" height="42" rx="16" fill="#0d1428"/>
+    <!-- Window Controls -->
+    <circle cx="68" cy="51" r="6" fill="#ef4444" opacity="0.85"/>
+    <circle cx="88" cy="51" r="6" fill="#f59e0b" opacity="0.85"/>
+    <circle cx="108" cy="51" r="6" fill="#10b981" opacity="0.85"/>
+    <!-- Breadcrumb -->
+    <text x="640" y="56" fill="#94a3b8" font-family="-apple-system, BlinkMacSystemFont, 'Inter', sans-serif" font-size="12" font-weight="500" text-anchor="middle">Knowledge Vault · VaultOS Dashboard</text>
+
+    <!-- Sidebar Mini Rail -->
+    <rect x="40" y="72" width="56" height="698" fill="#070c18"/>
+    <!-- Nav Icons -->
+    <rect x="56" y="96" width="24" height="24" rx="6" fill="rgba(56,189,248,0.15)"/>
+    <path d="M62 108 L74 108 M68 102 L68 114" stroke="#38bdf8" stroke-width="2" stroke-linecap="round"/>
+    <circle cx="68" cy="150" r="9" stroke="#64748b" stroke-width="1.8" fill="none"/>
+    <rect x="61" y="186" width="14" height="14" rx="3" stroke="#64748b" stroke-width="1.8" fill="none"/>
+    <path d="M62 232 L74 232 M62 236 L70 236 M62 240 L72 240" stroke="#64748b" stroke-width="1.8" stroke-linecap="round"/>
+
+    <!-- Dashboard Content Area -->
+    <g transform="translate(120, 92)">
+      <!-- Top Header Row -->
+      <g>
+        <text x="0" y="32" fill="#ffffff" font-family="-apple-system, BlinkMacSystemFont, 'Outfit', 'Inter', sans-serif" font-size="26" font-weight="800" letter-spacing="-0.02em">VaultOS</text>
+        <text x="0" y="54" fill="#94a3b8" font-family="-apple-system, BlinkMacSystemFont, 'Inter', sans-serif" font-size="13" font-weight="400">Monday, Oct 12, 2026 · Personal Knowledge Base</text>
+        <!-- AI Engine Badge -->
+        <rect x="940" y="12" width="140" height="32" rx="16" fill="rgba(16,185,129,0.12)" stroke="rgba(16,185,129,0.3)" stroke-width="1"/>
+        <circle cx="956" cy="28" r="4" fill="#10b981"/>
+        <text x="968" y="32" fill="#10b981" font-family="-apple-system, BlinkMacSystemFont, 'Inter', sans-serif" font-size="12" font-weight="600">Gemini 2.0 Flash</text>
+      </g>
+
+      <!-- AI Command Bar Card -->
+      <rect x="0" y="74" width="1080" height="52" rx="12" fill="url(#card-grad)" stroke="rgba(56,189,248,0.25)" stroke-width="1.2"/>
+      <path d="M22 100 L26 94 L30 100 L36 104 L30 108 L26 114 L22 108 L16 104 Z" fill="#38bdf8"/>
+      <text x="44" y="105" fill="#e2e8f0" font-family="-apple-system, BlinkMacSystemFont, 'Inter', sans-serif" font-size="13.5">Ask AI anything or prompt vault synthesis across projects and notes...</text>
+      <rect x="990" y="84" width="76" height="32" rx="8" fill="url(#cyan-glow)"/>
+      <text x="1028" y="104" fill="#070c18" font-family="-apple-system, BlinkMacSystemFont, 'Inter', sans-serif" font-size="12" font-weight="700" text-anchor="middle">Send</text>
+
+      <!-- Metrics Quad Grid -->
+      <g transform="translate(0, 142)">
+        <!-- Metric 1: Total Notes -->
+        <rect x="0" y="0" width="255" height="88" rx="12" fill="url(#card-grad)" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
+        <text x="18" y="28" fill="#94a3b8" font-family="-apple-system, BlinkMacSystemFont, 'Inter', sans-serif" font-size="11.5" font-weight="600" text-transform="uppercase" letter-spacing="0.05em">Total Notes</text>
+        <text x="18" y="66" fill="#ffffff" font-family="-apple-system, BlinkMacSystemFont, 'Outfit', 'Inter', sans-serif" font-size="28" font-weight="800">1,248</text>
+        <circle cx="225" cy="44" r="16" fill="rgba(56,189,248,0.1)"/>
+        <path d="M220 40 H230 M220 44 H228 M220 48 H225" stroke="#38bdf8" stroke-width="1.6" stroke-linecap="round"/>
+
+        <!-- Metric 2: Active Projects -->
+        <rect x="275" y="0" width="255" height="88" rx="12" fill="url(#card-grad)" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
+        <text x="293" y="28" fill="#94a3b8" font-family="-apple-system, BlinkMacSystemFont, 'Inter', sans-serif" font-size="11.5" font-weight="600" text-transform="uppercase" letter-spacing="0.05em">Active Projects</text>
+        <text x="293" y="66" fill="#38bdf8" font-family="-apple-system, BlinkMacSystemFont, 'Outfit', 'Inter', sans-serif" font-size="28" font-weight="800">5</text>
+        <circle cx="500" cy="44" r="16" fill="rgba(16,185,129,0.1)"/>
+        <rect x="494" y="38" width="12" height="12" rx="2.5" stroke="#10b981" stroke-width="1.6" fill="none"/>
+
+        <!-- Metric 3: Open Tasks -->
+        <rect x="550" y="0" width="255" height="88" rx="12" fill="url(#card-grad)" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
+        <text x="568" y="28" fill="#94a3b8" font-family="-apple-system, BlinkMacSystemFont, 'Inter', sans-serif" font-size="11.5" font-weight="600" text-transform="uppercase" letter-spacing="0.05em">Open Tasks</text>
+        <text x="568" y="66" fill="#10b981" font-family="-apple-system, BlinkMacSystemFont, 'Outfit', 'Inter', sans-serif" font-size="28" font-weight="800">12</text>
+        <circle cx="775" cy="44" r="16" fill="rgba(167,139,250,0.1)"/>
+        <circle cx="775" cy="44" r="7" stroke="#a78bfa" stroke-width="1.6" fill="none"/>
+        <path d="M772 44 L774 46 L778 42" stroke="#a78bfa" stroke-width="1.6" stroke-linecap="round"/>
+
+        <!-- Metric 4: AI Model Engine -->
+        <rect x="825" y="0" width="255" height="88" rx="12" fill="url(#card-grad)" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
+        <text x="843" y="28" fill="#94a3b8" font-family="-apple-system, BlinkMacSystemFont, 'Inter', sans-serif" font-size="11.5" font-weight="600" text-transform="uppercase" letter-spacing="0.05em">Active Engine</text>
+        <text x="843" y="66" fill="#a78bfa" font-family="-apple-system, BlinkMacSystemFont, 'Outfit', 'Inter', sans-serif" font-size="24" font-weight="700">Multi-LLM</text>
+        <circle cx="1050" cy="44" r="16" fill="rgba(245,158,11,0.1)"/>
+        <polygon points="1050,37 1052,42 1057,44 1052,46 1050,51 1048,46 1043,44 1048,42" fill="#f59e0b"/>
+      </g>
+
+      <!-- Bento Main Content Columns -->
+      <g transform="translate(0, 246)">
+        <!-- Col 1: Active Projects (width 345) -->
+        <rect x="0" y="0" width="345" height="380" rx="14" fill="url(#card-grad)" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
+        <text x="20" y="32" fill="#ffffff" font-family="-apple-system, BlinkMacSystemFont, 'Outfit', 'Inter', sans-serif" font-size="15" font-weight="700">Active Projects</text>
+        <rect x="250" y="16" width="75" height="22" rx="11" fill="rgba(56,189,248,0.1)"/>
+        <text x="287" y="31" fill="#38bdf8" font-family="-apple-system, BlinkMacSystemFont, 'Inter', sans-serif" font-size="10.5" font-weight="600" text-anchor="middle">5 in-flight</text>
+
+        <!-- Project Rows -->
+        <g transform="translate(20, 52)">
+          <rect x="0" y="0" width="305" height="48" rx="8" fill="rgba(255,255,255,0.02)" stroke="rgba(255,255,255,0.04)" stroke-width="1"/>
+          <text x="14" y="24" fill="#f8fafc" font-size="13" font-weight="600">Project Aurora</text>
+          <text x="14" y="38" fill="#64748b" font-size="10.5">Design system &amp; component tokens</text>
+          <text x="290" y="28" fill="#10b981" font-size="11" font-weight="600" text-anchor="end">Active</text>
+
+          <rect x="0" y="56" width="305" height="48" rx="8" fill="rgba(255,255,255,0.02)" stroke="rgba(255,255,255,0.04)" stroke-width="1"/>
+          <text x="14" y="80" fill="#f8fafc" font-size="13" font-weight="600">Atlas CLI</text>
+          <text x="14" y="94" fill="#64748b" font-size="10.5">Developer toolchain &amp; terminal utilities</text>
+          <text x="290" y="84" fill="#10b981" font-size="11" font-weight="600" text-anchor="end">Active</text>
+
+          <rect x="0" y="112" width="305" height="48" rx="8" fill="rgba(255,255,255,0.02)" stroke="rgba(255,255,255,0.04)" stroke-width="1"/>
+          <text x="14" y="136" fill="#f8fafc" font-size="13" font-weight="600">Helios Engine</text>
+          <text x="14" y="150" fill="#64748b" font-size="10.5">Real-time sync &amp; streaming protocol</text>
+          <text x="290" y="140" fill="#10b981" font-size="11" font-weight="600" text-anchor="end">Active</text>
+
+          <rect x="0" y="168" width="305" height="48" rx="8" fill="rgba(255,255,255,0.02)" stroke="rgba(255,255,255,0.04)" stroke-width="1"/>
+          <text x="14" y="192" fill="#f8fafc" font-size="13" font-weight="600">Starlight Docs</text>
+          <text x="14" y="206" fill="#64748b" font-size="10.5">Documentation engine &amp; search</text>
+          <text x="290" y="196" fill="#38bdf8" font-size="11" font-weight="600" text-anchor="end">Shipped</text>
+
+          <rect x="0" y="224" width="305" height="48" rx="8" fill="rgba(255,255,255,0.02)" stroke="rgba(255,255,255,0.04)" stroke-width="1"/>
+          <text x="14" y="248" fill="#f8fafc" font-size="13" font-weight="600">Nova Analytics</text>
+          <text x="14" y="262" fill="#64748b" font-size="10.5">Telemetry pipeline &amp; reporting</text>
+          <text x="290" y="252" fill="#10b981" font-size="11" font-weight="600" text-anchor="end">Active</text>
+        </g>
+
+        <!-- Col 2: Action Items (width 430) -->
+        <rect x="365" y="0" width="430" height="380" rx="14" fill="url(#card-grad)" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
+        <text x="385" y="32" fill="#ffffff" font-family="-apple-system, BlinkMacSystemFont, 'Outfit', 'Inter', sans-serif" font-size="15" font-weight="700">Action Items</text>
+        <rect x="710" y="16" width="65" height="22" rx="11" fill="rgba(16,185,129,0.1)"/>
+        <text x="742" y="31" fill="#10b981" font-family="-apple-system, BlinkMacSystemFont, 'Inter', sans-serif" font-size="10.5" font-weight="600" text-anchor="middle">12 open</text>
+
+        <!-- Task Rows -->
+        <g transform="translate(385, 52)">
+          <rect x="0" y="0" width="390" height="48" rx="8" fill="rgba(255,255,255,0.02)" stroke="rgba(255,255,255,0.04)" stroke-width="1"/>
+          <circle cx="20" cy="24" r="8" stroke="#38bdf8" stroke-width="1.8" fill="none"/>
+          <text x="38" y="24" fill="#f8fafc" font-size="12.5" font-weight="500">Refactor semantic token parser for dark theme</text>
+          <text x="38" y="38" fill="#64748b" font-size="10">Projects/Aurora · 📅 2026-10-14</text>
+
+          <rect x="0" y="56" width="390" height="48" rx="8" fill="rgba(255,255,255,0.02)" stroke="rgba(255,255,255,0.04)" stroke-width="1"/>
+          <circle cx="20" cy="80" r="8" stroke="#38bdf8" stroke-width="1.8" fill="none"/>
+          <text x="38" y="80" fill="#f8fafc" font-size="12.5" font-weight="500">Implement retry backoff for telemetry WebSocket</text>
+          <text x="38" y="94" fill="#64748b" font-size="10">Projects/Helios · 📅 2026-10-15</text>
+
+          <rect x="0" y="112" width="390" height="48" rx="8" fill="rgba(255,255,255,0.02)" stroke="rgba(255,255,255,0.04)" stroke-width="1"/>
+          <circle cx="20" cy="136" r="8" stroke="#38bdf8" stroke-width="1.8" fill="none"/>
+          <text x="38" y="136" fill="#f8fafc" font-size="12.5" font-weight="500">Benchmark local Ollama inference throughput</text>
+          <text x="38" y="150" fill="#64748b" font-size="10">Projects/VaultOS · 📅 2026-10-16</text>
+
+          <rect x="0" y="168" width="390" height="48" rx="8" fill="rgba(255,255,255,0.02)" stroke="rgba(255,255,255,0.04)" stroke-width="1"/>
+          <circle cx="20" cy="192" r="8" stroke="#10b981" stroke-width="1.8" fill="rgba(16,185,129,0.2)"/>
+          <path d="M17 192 L19 194 L23 190" stroke="#10b981" stroke-width="1.6" stroke-linecap="round"/>
+          <text x="38" y="192" fill="#64748b" font-size="12.5" text-decoration="line-through">Publish community documentation guide</text>
+          <text x="38" y="206" fill="#475569" font-size="10">Community Release · Completed today</text>
+
+          <rect x="0" y="224" width="390" height="48" rx="8" fill="rgba(255,255,255,0.02)" stroke="rgba(255,255,255,0.04)" stroke-width="1"/>
+          <circle cx="20" cy="248" r="8" stroke="#38bdf8" stroke-width="1.8" fill="none"/>
+          <text x="38" y="248" fill="#f8fafc" font-size="12.5" font-weight="500">Review CLI terminal output formatting on Windows</text>
+          <text x="38" y="262" fill="#64748b" font-size="10">Projects/Atlas · 📅 2026-10-18</text>
+        </g>
+
+        <!-- Col 3: Quick Launch Hub (width 265) -->
+        <rect x="815" y="0" width="265" height="380" rx="14" fill="url(#card-grad)" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
+        <text x="835" y="32" fill="#ffffff" font-family="-apple-system, BlinkMacSystemFont, 'Outfit', 'Inter', sans-serif" font-size="15" font-weight="700">Quick Launch</text>
+
+        <!-- Tiles -->
+        <g transform="translate(835, 52)">
+          <rect x="0" y="0" width="225" height="54" rx="8" fill="rgba(255,255,255,0.03)" stroke="rgba(255,255,255,0.05)" stroke-width="1"/>
+          <text x="14" y="24" fill="#f8fafc" font-size="13" font-weight="600">Daily Journal</text>
+          <text x="14" y="40" fill="#38bdf8" font-size="11">Daily/2026-10-12</text>
+
+          <rect x="0" y="64" width="225" height="54" rx="8" fill="rgba(255,255,255,0.03)" stroke="rgba(255,255,255,0.05)" stroke-width="1"/>
+          <text x="14" y="88" fill="#f8fafc" font-size="13" font-weight="600">Projects Directory</text>
+          <text x="14" y="104" fill="#94a3b8" font-size="11">Projects/</text>
+
+          <rect x="0" y="128" width="225" height="54" rx="8" fill="rgba(255,255,255,0.03)" stroke="rgba(255,255,255,0.05)" stroke-width="1"/>
+          <text x="14" y="152" fill="#f8fafc" font-size="13" font-weight="600">Resource Library</text>
+          <text x="14" y="168" fill="#94a3b8" font-size="11">Resources/</text>
+
+          <rect x="0" y="192" width="225" height="54" rx="8" fill="rgba(255,255,255,0.03)" stroke="rgba(255,255,255,0.05)" stroke-width="1"/>
+          <text x="14" y="216" fill="#f8fafc" font-size="13" font-weight="600">Action Items</text>
+          <text x="14" y="232" fill="#10b981" font-size="11">_dashboards/Action Items</text>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>
