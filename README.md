@@ -25,8 +25,15 @@ VaultOS turns your Obsidian vault into an executive command center. Built with m
 
 ## 🚀 Installation
 
-### Via BRAT (Beta Reviewers Auto-update Tester)
-1. In Obsidian, install and enable the **BRAT** community plugin.
+### From Obsidian Community Plugins (Recommended)
+1. In Obsidian, open **Settings** → **Community plugins**.
+2. Ensure **Restricted mode** is turned off.
+3. Click **Browse** and search for **VaultOS**.
+4. Click **Install**, then click **Enable**.
+
+### Beta Testing via BRAT
+To receive early pre-release builds before directory updates:
+1. Install and enable the **BRAT** community plugin in Obsidian.
 2. Open BRAT settings and click **Add Beta plugin**.
 3. Enter `Rbm3267/obsidian-vaultos`.
 4. Enable **VaultOS** under Community Plugins.
