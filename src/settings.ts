@@ -14,11 +14,7 @@ export class VaultOSSettingTab extends PluginSettingTab {
     const { containerEl } = this;
     containerEl.empty();
 
-    new Setting(containerEl)
-      .setName('General')
-      .setHeading();
-
-    // ── General ───────────────────────────────────────────
+    // ── Dashboard Options ─────────────────────────────────
     new Setting(containerEl)
       .setName('Dashboard Title')
       .setDesc('Title displayed in the dashboard header.')
