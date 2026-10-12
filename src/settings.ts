@@ -14,7 +14,9 @@ export class VaultOSSettingTab extends PluginSettingTab {
     const { containerEl } = this;
     containerEl.empty();
 
-    containerEl.createEl('h2', { text: 'VaultOS Configuration' });
+    new Setting(containerEl)
+      .setName('VaultOS Configuration')
+      .setHeading();
 
     // ── General Settings ──────────────────────────────────
     new Setting(containerEl)
@@ -56,7 +58,9 @@ export class VaultOSSettingTab extends PluginSettingTab {
       );
 
     // ── AI Engine Provider ────────────────────────────────
-    containerEl.createEl('h3', { text: 'AI Engine Settings' });
+    new Setting(containerEl)
+      .setName('AI Engine Settings')
+      .setHeading();
 
     new Setting(containerEl)
       .setName('Default AI Provider')

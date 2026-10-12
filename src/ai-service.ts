@@ -1,27 +1,62 @@
 import { requestUrl } from 'obsidian';
 import { VaultOSSettings } from './types';
 
+interface GeminiCandidate {
+  content?: {
+    parts?: Array<{ text?: string }>;
+  };
+}
+
+interface GeminiResponse {
+  candidates?: GeminiCandidate[];
+}
+
+interface ClaudeContentBlock {
+  type: string;
+  text?: string;
+}
+
+interface ClaudeResponse {
+  content?: ClaudeContentBlock[];
+}
+
+interface OpenAIChoice {
+  message?: {
+    content?: string;
+  };
+}
+
+interface OpenAIResponse {
+  choices?: OpenAIChoice[];
+}
+
+interface OllamaResponse {
+  response?: string;
+}
+
 export class AIService {
-  constructor(private settings: VaultOSSettings) {}
+  private settings: VaultOSSettings;
+
+  constructor(settings: VaultOSSettings) {
+    this.settings = settings;
+  }
 
   updateSettings(settings: VaultOSSettings) {
     this.settings = settings;
   }
 
-  async askAI(prompt: string, context?: string): Promise<string> {
-    const fullPrompt = context ? `Context:\n${context}\n\nUser request:\n${prompt}` : prompt;
-
+  async askAI(prompt: string): Promise<string> {
     switch (this.settings.aiProvider) {
       case 'gemini':
-        return this.queryGemini(fullPrompt);
+        return this.queryGemini(prompt);
       case 'claude':
-        return this.queryClaude(fullPrompt);
+        return this.queryClaude(prompt);
       case 'openai':
-        return this.queryOpenAI(fullPrompt);
+        return this.queryOpenAI(prompt);
       case 'ollama':
-        return this.queryOllama(fullPrompt);
+        return this.queryOllama(prompt);
       default:
-        throw new Error(`Unsupported AI provider: ${this.settings.aiProvider}`);
+        return this.queryGemini(prompt);
     }
   }
 
@@ -47,7 +82,7 @@ export class AIService {
       throw new Error(`Gemini API Error (${res.status}): ${res.text}`);
     }
 
-    const data = res.json;
+    const data = res.json as GeminiResponse;
     const candidate = data.candidates?.[0];
     const text = candidate?.content?.parts?.[0]?.text;
     if (!text) {
@@ -83,8 +118,8 @@ export class AIService {
       throw new Error(`Claude API Error (${res.status}): ${res.text}`);
     }
 
-    const data = res.json;
-    const textPart = data.content?.find((p: { type: string; text?: string }) => p.type === 'text');
+    const data = res.json as ClaudeResponse;
+    const textPart = data.content?.find(p => p.type === 'text');
     return textPart?.text ? textPart.text.trim() : 'No response from Claude.';
   }
 
@@ -112,7 +147,7 @@ export class AIService {
       throw new Error(`OpenAI API Error (${res.status}): ${res.text}`);
     }
 
-    const data = res.json;
+    const data = res.json as OpenAIResponse;
     return data.choices?.[0]?.message?.content?.trim() || 'No response from OpenAI.';
   }
 
@@ -135,7 +170,7 @@ export class AIService {
       throw new Error(`Ollama Error (${res.status}): ${res.text}`);
     }
 
-    const data = res.json;
+    const data = res.json as OllamaResponse;
     return data.response?.trim() || 'No response from Ollama.';
   }
 }

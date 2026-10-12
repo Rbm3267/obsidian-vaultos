@@ -20,15 +20,15 @@ export default class VaultOSPlugin extends Plugin {
 
     // Ribbon icon
     this.addRibbonIcon('layout-dashboard', 'Open VaultOS Dashboard', () => {
-      this.activateView();
+      void this.activateView();
     });
 
-    // Command palette
+    // Command palette (ID should not duplicate plugin name)
     this.addCommand({
-      id: 'open-vaultos-dashboard',
+      id: 'open-dashboard',
       name: 'Open Dashboard',
       callback: () => {
-        this.activateView();
+        void this.activateView();
       },
     });
 
@@ -38,13 +38,13 @@ export default class VaultOSPlugin extends Plugin {
     // Optional open on startup
     if (this.settings.openOnStartup) {
       this.app.workspace.onLayoutReady(() => {
-        this.activateView();
+        void this.activateView();
       });
     }
   }
 
   onunload() {
-    this.app.workspace.detachLeavesOfType(VIEW_TYPE_VAULTOS);
+    // Leave leaves in place to preserve layout location when reloaded
   }
 
   async activateView() {
@@ -63,19 +63,20 @@ export default class VaultOSPlugin extends Plugin {
     }
 
     if (leaf) {
-      workspace.revealLeaf(leaf);
+      workspace.setActiveLeaf(leaf, { focus: true });
     }
   }
 
   async loadSettings() {
-    this.settings = Object.assign({}, DEFAULT_SETTINGS, await this.loadData());
+    const loaded = await this.loadData();
+    this.settings = Object.assign({}, DEFAULT_SETTINGS, (loaded && typeof loaded === 'object') ? loaded : {});
   }
 
   async saveSettings() {
     await this.saveData(this.settings);
     this.aiService?.updateSettings(this.settings);
     
-    // Refresh open view
+    // Refresh open views
     const leaves = this.app.workspace.getLeavesOfType(VIEW_TYPE_VAULTOS);
     for (const leaf of leaves) {
       if (leaf.view instanceof VaultOSView) {

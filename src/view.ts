@@ -1,7 +1,6 @@
-import { ItemView, WorkspaceLeaf, TFile } from 'obsidian';
+import { ItemView, WorkspaceLeaf, TFile, setIcon } from 'obsidian';
 import { VaultOSSettings, TaskItem, WorkstreamItem } from './types';
 import { AIService } from './ai-service';
-import { ICONS } from './icons';
 
 export const VIEW_TYPE_VAULTOS = 'vaultos-dashboard';
 
@@ -34,7 +33,7 @@ export class VaultOSView extends ItemView {
   updateSettings(settings: VaultOSSettings) {
     this.settings = settings;
     this.aiService.updateSettings(settings);
-    this.render();
+    void this.render();
   }
 
   async render(): Promise<void> {
@@ -64,7 +63,9 @@ export class VaultOSView extends ItemView {
 
     const headerRight = header.createDiv({ cls: 'vaultos-header-right' });
     const aiBadge = headerRight.createDiv({ cls: 'vaultos-badge vaultos-badge-accent' });
-    aiBadge.innerHTML = `${ICONS.sparkles} <span>${this.getProviderLabel()}</span>`;
+    const badgeIcon = aiBadge.createSpan({ cls: 'vaultos-icon-wrap' });
+    setIcon(badgeIcon, 'sparkles');
+    aiBadge.createSpan({ text: this.getProviderLabel() });
 
     // ── AI Command Bar ───────────────────────────────────
     const aiSection = container.createDiv({ cls: 'vaultos-card vaultos-ai-bar' });
@@ -75,7 +76,9 @@ export class VaultOSView extends ItemView {
       placeholder: `Ask ${this.getProviderLabel()} anything or prompt vault synthesis...`,
     });
     const sendBtn = aiRow.createEl('button', { cls: 'vaultos-btn vaultos-btn-primary' });
-    sendBtn.innerHTML = `${ICONS.send} <span>Send</span>`;
+    const sendBtnIcon = sendBtn.createSpan({ cls: 'vaultos-icon-wrap' });
+    setIcon(sendBtnIcon, 'send');
+    const sendBtnLabel = sendBtn.createSpan({ text: 'Send' });
 
     const aiResponseContainer = aiSection.createDiv({ cls: 'vaultos-ai-response' });
     aiResponseContainer.hide();
@@ -85,7 +88,8 @@ export class VaultOSView extends ItemView {
       if (!prompt) return;
 
       sendBtn.disabled = true;
-      sendBtn.innerHTML = `${ICONS.refresh} <span>Thinking...</span>`;
+      setIcon(sendBtnIcon, 'loader-2');
+      sendBtnLabel.setText('Thinking...');
       aiResponseContainer.show();
       aiResponseContainer.empty();
       aiResponseContainer.createDiv({ cls: 'vaultos-ai-loading', text: 'Generating response...' });
@@ -100,22 +104,25 @@ export class VaultOSView extends ItemView {
         const actionsRow = aiResponseContainer.createDiv({ cls: 'vaultos-ai-actions' });
         const copyBtn = actionsRow.createEl('button', { cls: 'vaultos-btn-sm', text: 'Copy' });
         copyBtn.addEventListener('click', () => {
-          navigator.clipboard.writeText(result);
-          copyBtn.setText('Copied!');
-          setTimeout(() => copyBtn.setText('Copy'), 1500);
+          void navigator.clipboard.writeText(result).then(() => {
+            copyBtn.setText('Copied!');
+            window.setTimeout(() => copyBtn.setText('Copy'), 1500);
+          });
         });
 
         const insertBtn = actionsRow.createEl('button', { cls: 'vaultos-btn-sm', text: 'Insert into active note' });
-        insertBtn.addEventListener('click', async () => {
-          const activeFile = this.app.workspace.getActiveFile();
-          if (activeFile) {
-            await this.app.vault.append(activeFile, `\n\n${result}`);
-            insertBtn.setText('Inserted!');
-            setTimeout(() => insertBtn.setText('Insert into active note'), 1500);
-          } else {
-            insertBtn.setText('No active note');
-            setTimeout(() => insertBtn.setText('Insert into active note'), 1500);
-          }
+        insertBtn.addEventListener('click', () => {
+          void (async () => {
+            const activeFile = this.app.workspace.getActiveFile();
+            if (activeFile) {
+              await this.app.vault.append(activeFile, `\n\n${result}`);
+              insertBtn.setText('Inserted!');
+              window.setTimeout(() => insertBtn.setText('Insert into active note'), 1500);
+            } else {
+              insertBtn.setText('No active note');
+              window.setTimeout(() => insertBtn.setText('Insert into active note'), 1500);
+            }
+          })();
         });
       } catch (err: unknown) {
         aiResponseContainer.empty();
@@ -123,22 +130,27 @@ export class VaultOSView extends ItemView {
         errorEl.setText(err instanceof Error ? err.message : String(err));
       } finally {
         sendBtn.disabled = false;
-        sendBtn.innerHTML = `${ICONS.send} <span>Send</span>`;
+        setIcon(sendBtnIcon, 'send');
+        sendBtnLabel.setText('Send');
       }
     };
 
-    sendBtn.addEventListener('click', runAI);
+    sendBtn.addEventListener('click', () => {
+      void runAI();
+    });
     promptInput.addEventListener('keydown', (e) => {
-      if (e.key === 'Enter') runAI();
+      if (e.key === 'Enter') {
+        void runAI();
+      }
     });
 
     // ── Metrics Grid ─────────────────────────────────────
     const metricsRow = container.createDiv({ cls: 'vaultos-metrics-grid' });
     
-    this.createMetricCard(metricsRow, 'Total Notes', String(notesCount), ICONS.fileText);
-    this.createMetricCard(metricsRow, 'Workstreams', String(workstreams.length), ICONS.folder);
-    this.createMetricCard(metricsRow, 'Open Tasks', String(tasks.length), ICONS.checkCircle);
-    this.createMetricCard(metricsRow, 'Model Engine', this.getProviderLabel(), ICONS.sparkles);
+    this.createMetricCard(metricsRow, 'Total Notes', String(notesCount), 'file-text');
+    this.createMetricCard(metricsRow, 'Workstreams', String(workstreams.length), 'folder');
+    this.createMetricCard(metricsRow, 'Open Tasks', String(tasks.length), 'check-circle');
+    this.createMetricCard(metricsRow, 'Model Engine', this.getProviderLabel(), 'sparkles');
 
     // ── Bento Main Content ───────────────────────────────
     const bentoGrid = container.createDiv({ cls: 'vaultos-bento-grid' });
@@ -155,10 +167,10 @@ export class VaultOSView extends ItemView {
     } else {
       for (const item of workstreams.slice(0, 8)) {
         const row = workstreamList.createDiv({ cls: 'vaultos-list-row' });
-        const titleEl = row.createDiv({ cls: 'vaultos-item-title', text: item.title });
+        row.createDiv({ cls: 'vaultos-item-title', text: item.title });
         row.createDiv({ cls: 'vaultos-item-meta', text: item.status });
         row.addEventListener('click', () => {
-          this.app.workspace.openLinkText(item.path, '', false);
+          void this.app.workspace.openLinkText(item.path, '', false);
         });
       }
     }
@@ -176,19 +188,23 @@ export class VaultOSView extends ItemView {
       for (const t of tasks.slice(0, 8)) {
         const row = taskList.createDiv({ cls: 'vaultos-list-row vaultos-task-row' });
         const checkBtn = row.createEl('button', { cls: 'vaultos-check-btn' });
-        checkBtn.innerHTML = ICONS.checkCircle;
+        setIcon(checkBtn, 'circle');
         
-        const label = row.createSpan({ cls: 'vaultos-task-text', text: t.text });
+        row.createSpan({ cls: 'vaultos-task-text', text: t.text });
         
-        checkBtn.addEventListener('click', async (e) => {
+        checkBtn.addEventListener('click', (e) => {
           e.stopPropagation();
-          await this.completeTask(t);
-          row.addClass('vaultos-task-completed');
-          setTimeout(() => this.render(), 600);
+          void (async () => {
+            await this.completeTask(t);
+            row.addClass('vaultos-task-completed');
+            window.setTimeout(() => {
+              void this.render();
+            }, 600);
+          })();
         });
 
         row.addEventListener('click', () => {
-          this.app.workspace.openLinkText(t.path, '', false);
+          void this.app.workspace.openLinkText(t.path, '', false);
         });
       }
     }
@@ -204,16 +220,17 @@ export class VaultOSView extends ItemView {
       tile.createDiv({ cls: 'vaultos-pinned-title', text: link.title });
       tile.createDiv({ cls: 'vaultos-pinned-cat', text: link.category });
       tile.addEventListener('click', () => {
-        this.app.workspace.openLinkText(link.path, '', false);
+        void this.app.workspace.openLinkText(link.path, '', false);
       });
     }
   }
 
-  private createMetricCard(container: HTMLElement, label: string, value: string, iconSvg: string) {
+  private createMetricCard(container: HTMLElement, label: string, value: string, iconId: string) {
     const card = container.createDiv({ cls: 'vaultos-card vaultos-metric-card' });
     const top = card.createDiv({ cls: 'vaultos-metric-top' });
     top.createSpan({ cls: 'vaultos-metric-label', text: label });
-    top.createDiv({ cls: 'vaultos-metric-icon' }).innerHTML = iconSvg;
+    const iconEl = top.createDiv({ cls: 'vaultos-metric-icon' });
+    setIcon(iconEl, iconId);
     card.createDiv({ cls: 'vaultos-metric-val', text: value });
   }
 
