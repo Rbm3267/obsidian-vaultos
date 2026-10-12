@@ -1,6 +1,6 @@
 {
   "name": "obsidian-vaultos",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Customizable bento dashboard, vault telemetry, quick actions, and built-in AI assistant for Obsidian.",
   "main": "main.js",
   "scripts": {
