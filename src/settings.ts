@@ -1,6 +1,5 @@
-import { App, PluginSettingTab, Setting } from 'obsidian';
+import { App, PluginSettingTab, SettingDefinitionItem } from 'obsidian';
 import type VaultOSPlugin from './main';
-import { AIProvider } from './types';
 
 export class VaultOSSettingTab extends PluginSettingTab {
   plugin: VaultOSPlugin;
@@ -10,194 +9,163 @@ export class VaultOSSettingTab extends PluginSettingTab {
     this.plugin = plugin;
   }
 
-  display(): void {
-    const { containerEl } = this;
-    containerEl.empty();
+  getSettingDefinitions(): SettingDefinitionItem[] {
+    return [
+      // ── Dashboard options ─────────────────────────────────
+      {
+        type: 'group',
+        heading: 'Dashboard options',
+        items: [
+          {
+            name: 'Dashboard title',
+            desc: 'Title displayed in the dashboard header.',
+            control: {
+              type: 'text',
+              key: 'dashboardTitle',
+              placeholder: 'VaultOS',
+            },
+          },
+          {
+            name: 'Open on startup',
+            desc: 'Automatically open the VaultOS Dashboard when Obsidian launches.',
+            control: {
+              type: 'toggle',
+              key: 'openOnStartup',
+            },
+          },
+          {
+            name: 'Workstreams folder',
+            desc: 'Folder containing your active project or account notes.',
+            control: {
+              type: 'folder',
+              key: 'workstreamsFolder',
+              placeholder: 'Projects',
+            },
+          },
+        ],
+      },
 
-    // ── Dashboard Options ─────────────────────────────────
-    new Setting(containerEl)
-      .setName('Dashboard Title')
-      .setDesc('Title displayed in the dashboard header.')
-      .addText(text =>
-        text
-          .setPlaceholder('VaultOS')
-          .setValue(this.plugin.settings.dashboardTitle)
-          .onChange(async val => {
-            this.plugin.settings.dashboardTitle = val;
-            await this.plugin.saveSettings();
-          })
-      );
+      // ── AI engine ────────────────────────────────────────
+      {
+        type: 'group',
+        heading: 'AI engine',
+        items: [
+          {
+            name: 'Default AI provider',
+            desc: 'Select which LLM provider powers the command bar and automated synthesis.',
+            control: {
+              type: 'dropdown',
+              key: 'aiProvider',
+              options: {
+                gemini: 'Google Gemini',
+                claude: 'Anthropic Claude',
+                openai: 'OpenAI',
+                ollama: 'Ollama (Local)',
+              },
+            },
+          },
 
-    new Setting(containerEl)
-      .setName('Open on Startup')
-      .setDesc('Automatically open the VaultOS Dashboard when Obsidian launches.')
-      .addToggle(toggle =>
-        toggle
-          .setValue(this.plugin.settings.openOnStartup)
-          .onChange(async val => {
-            this.plugin.settings.openOnStartup = val;
-            await this.plugin.saveSettings();
-          })
-      );
+          // ── Gemini ───────────────────────────────────────
+          {
+            name: 'Gemini API key',
+            desc: 'Your Google AI Studio API key.',
+            visible: () => this.plugin.settings.aiProvider === 'gemini',
+            control: {
+              type: 'text',
+              key: 'geminiApiKey',
+              placeholder: 'AIzaSy...',
+            },
+          },
+          {
+            name: 'Gemini model',
+            desc: 'Select Gemini model.',
+            visible: () => this.plugin.settings.aiProvider === 'gemini',
+            control: {
+              type: 'dropdown',
+              key: 'geminiModel',
+              options: {
+                'gemini-1.5-flash': 'Gemini 1.5 Flash (Fast & Efficient)',
+                'gemini-1.5-pro': 'Gemini 1.5 Pro (Deep Reasoning)',
+                'gemini-2.0-flash-exp': 'Gemini 2.0 Flash',
+              },
+            },
+          },
 
-    new Setting(containerEl)
-      .setName('Workstreams Folder')
-      .setDesc('Folder containing your active project or account notes.')
-      .addText(text =>
-        text
-          .setPlaceholder('Projects')
-          .setValue(this.plugin.settings.workstreamsFolder)
-          .onChange(async val => {
-            this.plugin.settings.workstreamsFolder = val;
-            await this.plugin.saveSettings();
-          })
-      );
+          // ── Claude ───────────────────────────────────────
+          {
+            name: 'Anthropic API key',
+            desc: 'Your Anthropic console API key.',
+            visible: () => this.plugin.settings.aiProvider === 'claude',
+            control: {
+              type: 'text',
+              key: 'claudeApiKey',
+              placeholder: 'sk-ant-...',
+            },
+          },
+          {
+            name: 'Claude model',
+            desc: 'Select Claude model.',
+            visible: () => this.plugin.settings.aiProvider === 'claude',
+            control: {
+              type: 'dropdown',
+              key: 'claudeModel',
+              options: {
+                'claude-3-5-sonnet-20241022': 'Claude 3.5 Sonnet',
+                'claude-3-5-haiku-20241022': 'Claude 3.5 Haiku',
+                'claude-3-opus-20240229': 'Claude 3 Opus',
+              },
+            },
+          },
 
-    // ── AI Engine Provider ────────────────────────────────
-    new Setting(containerEl)
-      .setName('AI engine')
-      .setHeading();
+          // ── OpenAI ───────────────────────────────────────
+          {
+            name: 'OpenAI API key',
+            desc: 'Your OpenAI API key.',
+            visible: () => this.plugin.settings.aiProvider === 'openai',
+            control: {
+              type: 'text',
+              key: 'openaiApiKey',
+              placeholder: 'sk-...',
+            },
+          },
+          {
+            name: 'OpenAI model',
+            desc: 'Select OpenAI model.',
+            visible: () => this.plugin.settings.aiProvider === 'openai',
+            control: {
+              type: 'dropdown',
+              key: 'openaiModel',
+              options: {
+                'gpt-4o-mini': 'GPT-4o Mini',
+                'gpt-4o': 'GPT-4o',
+                'o1-mini': 'o1-mini',
+              },
+            },
+          },
 
-    new Setting(containerEl)
-      .setName('Default AI Provider')
-      .setDesc('Select which LLM provider powers the command bar and automated synthesis.')
-      .addDropdown(drop =>
-        drop
-          .addOption('gemini', 'Google Gemini')
-          .addOption('claude', 'Anthropic Claude')
-          .addOption('openai', 'OpenAI')
-          .addOption('ollama', 'Ollama (Local)')
-          .setValue(this.plugin.settings.aiProvider)
-          .onChange(async (val: AIProvider) => {
-            this.plugin.settings.aiProvider = val;
-            await this.plugin.saveSettings();
-            this.display(); // re-render to update relevant fields
-          })
-      );
-
-    // ── Gemini ───────────────────────────────────────────
-    if (this.plugin.settings.aiProvider === 'gemini') {
-      new Setting(containerEl)
-        .setName('Gemini API Key')
-        .setDesc('Your Google AI Studio API key.')
-        .addText(text => {
-          text.inputEl.type = 'password';
-          text
-            .setPlaceholder('AIzaSy...')
-            .setValue(this.plugin.settings.geminiApiKey)
-            .onChange(async val => {
-              this.plugin.settings.geminiApiKey = val;
-              await this.plugin.saveSettings();
-            });
-        });
-
-      new Setting(containerEl)
-        .setName('Gemini Model')
-        .setDesc('Select Gemini model.')
-        .addDropdown(drop =>
-          drop
-            .addOption('gemini-1.5-flash', 'Gemini 1.5 Flash (Fast & Efficient)')
-            .addOption('gemini-1.5-pro', 'Gemini 1.5 Pro (Deep Reasoning)')
-            .addOption('gemini-2.0-flash-exp', 'Gemini 2.0 Flash')
-            .setValue(this.plugin.settings.geminiModel)
-            .onChange(async val => {
-              this.plugin.settings.geminiModel = val;
-              await this.plugin.saveSettings();
-            })
-        );
-    }
-
-    // ── Claude ───────────────────────────────────────────
-    if (this.plugin.settings.aiProvider === 'claude') {
-      new Setting(containerEl)
-        .setName('Anthropic API Key')
-        .setDesc('Your Anthropic console API key.')
-        .addText(text => {
-          text.inputEl.type = 'password';
-          text
-            .setPlaceholder('sk-ant-...')
-            .setValue(this.plugin.settings.claudeApiKey)
-            .onChange(async val => {
-              this.plugin.settings.claudeApiKey = val;
-              await this.plugin.saveSettings();
-            });
-        });
-
-      new Setting(containerEl)
-        .setName('Claude Model')
-        .setDesc('Select Claude model.')
-        .addDropdown(drop =>
-          drop
-            .addOption('claude-3-5-sonnet-20241022', 'Claude 3.5 Sonnet')
-            .addOption('claude-3-5-haiku-20241022', 'Claude 3.5 Haiku')
-            .addOption('claude-3-opus-20240229', 'Claude 3 Opus')
-            .setValue(this.plugin.settings.claudeModel)
-            .onChange(async val => {
-              this.plugin.settings.claudeModel = val;
-              await this.plugin.saveSettings();
-            })
-        );
-    }
-
-    // ── OpenAI ───────────────────────────────────────────
-    if (this.plugin.settings.aiProvider === 'openai') {
-      new Setting(containerEl)
-        .setName('OpenAI API Key')
-        .setDesc('Your OpenAI API key.')
-        .addText(text => {
-          text.inputEl.type = 'password';
-          text
-            .setPlaceholder('sk-...')
-            .setValue(this.plugin.settings.openaiApiKey)
-            .onChange(async val => {
-              this.plugin.settings.openaiApiKey = val;
-              await this.plugin.saveSettings();
-            });
-        });
-
-      new Setting(containerEl)
-        .setName('OpenAI Model')
-        .setDesc('Select OpenAI model.')
-        .addDropdown(drop =>
-          drop
-            .addOption('gpt-4o-mini', 'GPT-4o Mini')
-            .addOption('gpt-4o', 'GPT-4o')
-            .addOption('o1-mini', 'o1-mini')
-            .setValue(this.plugin.settings.openaiModel)
-            .onChange(async val => {
-              this.plugin.settings.openaiModel = val;
-              await this.plugin.saveSettings();
-            })
-        );
-    }
-
-    // ── Ollama ───────────────────────────────────────────
-    if (this.plugin.settings.aiProvider === 'ollama') {
-      new Setting(containerEl)
-        .setName('Ollama Endpoint')
-        .setDesc('Base URL for local Ollama server.')
-        .addText(text =>
-          text
-            .setPlaceholder('http://localhost:11434')
-            .setValue(this.plugin.settings.ollamaEndpoint)
-            .onChange(async val => {
-              this.plugin.settings.ollamaEndpoint = val;
-              await this.plugin.saveSettings();
-            })
-        );
-
-      new Setting(containerEl)
-        .setName('Ollama Model')
-        .setDesc('Model tag installed in Ollama (e.g. llama3, mistral, qwen2.5).')
-        .addText(text =>
-          text
-            .setPlaceholder('llama3')
-            .setValue(this.plugin.settings.ollamaModel)
-            .onChange(async val => {
-              this.plugin.settings.ollamaModel = val;
-              await this.plugin.saveSettings();
-            })
-        );
-    }
+          // ── Ollama ───────────────────────────────────────
+          {
+            name: 'Ollama endpoint',
+            desc: 'Base URL for local Ollama server.',
+            visible: () => this.plugin.settings.aiProvider === 'ollama',
+            control: {
+              type: 'text',
+              key: 'ollamaEndpoint',
+              placeholder: 'http://localhost:11434',
+            },
+          },
+          {
+            name: 'Ollama model',
+            desc: 'Model tag installed in Ollama (e.g. llama3, mistral, qwen2.5).',
+            visible: () => this.plugin.settings.aiProvider === 'ollama',
+            control: {
+              type: 'text',
+              key: 'ollamaModel',
+              placeholder: 'llama3',
+            },
+          },
+        ],
+      },
+    ];
   }
 }

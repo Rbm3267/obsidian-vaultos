@@ -2,7 +2,7 @@
   "id": "vaultos",
   "name": "VaultOS",
   "version": "1.0.0",
-  "minAppVersion": "1.7.0",
+  "minAppVersion": "1.13.0",
   "description": "Customizable bento dashboard, vault telemetry, quick actions, and built-in AI assistant.",
   "author": "XD Labs",
   "authorUrl": "https://xdlabs.io",
