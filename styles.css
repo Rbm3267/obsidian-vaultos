@@ -1,0 +1,376 @@
+/* ═══════════════════════════════════════════════════════════════
+   VaultOS — Theme-Adaptive Bento Dashboard & Workspace System
+   ═══════════════════════════════════════════════════════════════ */
+
+.vaultos-dashboard {
+  padding: 24px 32px;
+  overflow-y: auto;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  background-color: var(--background-primary);
+  color: var(--text-normal);
+  font-family: var(--font-text);
+  box-sizing: border-box;
+}
+
+/* ── Header ─────────────────────────────────────────────────── */
+.vaultos-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--background-modifier-border);
+}
+
+.vaultos-title-group h1 {
+  margin: 0;
+  font-size: 26px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--text-normal);
+}
+
+.vaultos-subtitle {
+  font-size: 13px;
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+.vaultos-header-right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* ── Badges ─────────────────────────────────────────────────── */
+.vaultos-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 4px 10px;
+  border-radius: 9999px;
+  background: var(--background-secondary-alt);
+  color: var(--text-muted);
+  border: 1px solid var(--background-modifier-border);
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+
+.vaultos-badge-accent {
+  background: rgba(var(--interactive-accent-rgb, 16, 185, 129), 0.12);
+  color: var(--interactive-accent);
+  border-color: rgba(var(--interactive-accent-rgb, 16, 185, 129), 0.25);
+}
+
+.vaultos-badge svg {
+  stroke: currentColor;
+}
+
+/* ── Cards ──────────────────────────────────────────────────── */
+.vaultos-card {
+  background: var(--background-secondary);
+  border: 1px solid var(--background-modifier-border);
+  border-radius: 12px;
+  padding: 18px 20px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+  transition: border-color 0.15s ease;
+}
+
+.vaultos-card:hover {
+  border-color: var(--interactive-accent);
+}
+
+.vaultos-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 14px;
+}
+
+.vaultos-card-header h2 {
+  margin: 0;
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text-normal);
+}
+
+/* ── AI Command Bar ─────────────────────────────────────────── */
+.vaultos-ai-bar {
+  background: linear-gradient(180deg, var(--background-secondary) 0%, var(--background-secondary-alt) 100%);
+  border: 1px solid var(--background-modifier-border);
+  padding: 14px 18px;
+}
+
+.vaultos-ai-input-row {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.vaultos-ai-input {
+  flex: 1;
+  background: var(--background-primary);
+  border: 1px solid var(--background-modifier-border);
+  border-radius: 8px;
+  padding: 10px 14px;
+  color: var(--text-normal);
+  font-size: 13px;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.vaultos-ai-input:focus {
+  border-color: var(--interactive-accent);
+  box-shadow: 0 0 0 2px rgba(var(--interactive-accent-rgb, 16, 185, 129), 0.15);
+}
+
+.vaultos-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 9px 16px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  border: none;
+  transition: all 0.15s ease;
+}
+
+.vaultos-btn-primary {
+  background: var(--interactive-accent);
+  color: var(--text-on-accent, #ffffff);
+}
+
+.vaultos-btn-primary:hover:not(:disabled) {
+  filter: brightness(1.1);
+}
+
+.vaultos-btn-primary:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.vaultos-ai-response {
+  margin-top: 14px;
+  padding-top: 14px;
+  border-top: 1px solid var(--background-modifier-border);
+}
+
+.vaultos-ai-text {
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--text-normal);
+  white-space: pre-wrap;
+  max-height: 240px;
+  overflow-y: auto;
+}
+
+.vaultos-ai-actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.vaultos-btn-sm {
+  background: var(--background-primary);
+  border: 1px solid var(--background-modifier-border);
+  border-radius: 6px;
+  padding: 4px 10px;
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--text-muted);
+  cursor: pointer;
+}
+
+.vaultos-btn-sm:hover {
+  color: var(--text-normal);
+  border-color: var(--interactive-accent);
+}
+
+.vaultos-ai-error {
+  color: var(--text-error, #ef4444);
+  font-size: 12px;
+  font-style: italic;
+}
+
+.vaultos-ai-loading {
+  color: var(--text-muted);
+  font-size: 12px;
+  font-style: italic;
+}
+
+/* ── Metrics Grid ───────────────────────────────────────────── */
+.vaultos-metrics-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 16px;
+}
+
+.vaultos-metric-card {
+  padding: 16px 18px;
+}
+
+.vaultos-metric-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.vaultos-metric-label {
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--text-muted);
+}
+
+.vaultos-metric-icon {
+  color: var(--interactive-accent);
+  display: flex;
+}
+
+.vaultos-metric-val {
+  font-size: 24px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--text-normal);
+}
+
+/* ── Bento Grid ─────────────────────────────────────────────── */
+.vaultos-bento-grid {
+  display: grid;
+  grid-template-columns: 1.2fr 1.2fr 0.9fr;
+  gap: 16px;
+  flex: 1;
+}
+
+@media (max-width: 900px) {
+  .vaultos-bento-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ── Lists & Items ──────────────────────────────────────────── */
+.vaultos-list {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.vaultos-list-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 10px;
+  border-radius: 6px;
+  background: var(--background-primary);
+  border: 1px solid var(--background-modifier-border);
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.vaultos-list-row:hover {
+  background: var(--background-modifier-hover);
+  border-color: var(--interactive-accent);
+}
+
+.vaultos-item-title {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-normal);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  flex: 1;
+}
+
+.vaultos-item-meta {
+  font-size: 11px;
+  color: var(--text-faint);
+  margin-left: 8px;
+}
+
+.vaultos-task-row {
+  justify-content: flex-start;
+  gap: 10px;
+}
+
+.vaultos-check-btn {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  display: flex;
+  color: var(--text-faint);
+  transition: color 0.15s;
+}
+
+.vaultos-check-btn:hover {
+  color: var(--interactive-accent);
+}
+
+.vaultos-task-text {
+  font-size: 13px;
+  color: var(--text-normal);
+  flex: 1;
+  line-height: 1.4;
+}
+
+.vaultos-task-completed {
+  opacity: 0.4;
+  text-decoration: line-through;
+}
+
+.vaultos-empty-state {
+  font-size: 12px;
+  color: var(--text-faint);
+  font-style: italic;
+  padding: 16px 0;
+  text-align: center;
+}
+
+/* ── Quick Launch Pinned ────────────────────────────────────── */
+.vaultos-pinned-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 8px;
+}
+
+.vaultos-pinned-tile {
+  padding: 10px 14px;
+  border-radius: 8px;
+  background: var(--background-primary);
+  border: 1px solid var(--background-modifier-border);
+  cursor: pointer;
+  transition: all 0.15s ease;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.vaultos-pinned-tile:hover {
+  border-color: var(--interactive-accent);
+  transform: translateY(-1px);
+}
+
+.vaultos-pinned-title {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-normal);
+}
+
+.vaultos-pinned-cat {
+  font-size: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+  color: var(--text-faint);
+  letter-spacing: 0.05em;
+}
