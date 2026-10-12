@@ -21,7 +21,7 @@ export class VaultOSSettingTab extends PluginSettingTab {
     // ── General ───────────────────────────────────────────
     new Setting(containerEl)
       .setName('Dashboard Title')
-      .setDesc('Title displayed in the executive header.')
+      .setDesc('Title displayed in the dashboard header.')
       .addText(text =>
         text
           .setPlaceholder('VaultOS')

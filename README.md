@@ -1,79 +1,65 @@
 # VaultOS
 
-> Executive workspace operating system, customizable bento dashboard, telemetry, and non-blocking multi-model AI assistant for Obsidian.
+A customizable bento dashboard, workspace telemetry, and multi-model AI assistant for Obsidian.
 
 [![Obsidian Plugin](https://img.shields.io/badge/Obsidian-Plugin-7C3AED?logo=obsidian&logoColor=white)](https://obsidian.md)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 
-VaultOS turns your Obsidian vault into an executive command center. Built with modern Bento design principles, seamless Light/Dark theme compatibility, and plug-and-play AI support for Google Gemini, Anthropic Claude, OpenAI, and local Ollama models.
+VaultOS adds a dashboard homepage to your vault. It displays your notes, active projects, open tasks, and quick navigation in a clean bento layout, with an integrated AI assistant supporting Gemini, Claude, OpenAI, and local Ollama models.
 
 ---
 
-## ✨ Features
+## Features
 
-- **Executive Bento Dashboard**: Instant visibility into total notes, active workstreams, open action items, and knowledge growth.
-- **Plug-and-Play Multi-LLM Engine**:
-  - **Google Gemini** (Gemini 1.5 Flash, 1.5 Pro, 2.0)
-  - **Anthropic Claude** (Claude 3.5 Sonnet, Haiku, Opus)
+- **Bento Dashboard**: Overview of total notes, active workstreams, open action items, and model status.
+- **Multi-Model AI Assistant**:
+  - **Google Gemini** (1.5 Flash, 1.5 Pro, 2.0)
+  - **Anthropic Claude** (3.5 Sonnet, 3.5 Haiku, 3 Opus)
   - **OpenAI** (GPT-4o, GPT-4o-mini, o1-mini)
-  - **Ollama** (Local air-gapped inference: Llama 3, Mistral, Qwen)
-- **Universal Theme Harmony**: Fully adaptive to Obsidian's CSS variable system — zero CSS bleeding, zero theme overrides, perfect in both Light and Dark mode.
-- **Interactive Action Items**: Check off tasks directly from the dashboard and immediately update your underlying markdown notes.
-- **Quick Launch Workspace**: Fast-travel to daily notes, project directories, and key reference hubs.
+  - **Ollama** (Local models: Llama 3, Mistral, Qwen)
+- **Theme Support**: Uses Obsidian's native CSS variables to match both light and dark themes without styling conflicts.
+- **Interactive Tasks**: Mark tasks complete directly from the dashboard to update the source note.
+- **Quick Links**: Pinned shortcuts to open frequently used project pages and daily notes.
 
 ---
 
-## 🚀 Installation
+## Installation
 
-### From Obsidian Community Plugins (Recommended)
-1. In Obsidian, open **Settings** → **Community plugins**.
-2. Ensure **Restricted mode** is turned off.
-3. Click **Browse** and search for **VaultOS**.
-4. Click **Install**, then click **Enable**.
-
-### Beta Testing via BRAT
-To receive early pre-release builds before directory updates:
-1. Install and enable the **BRAT** community plugin in Obsidian.
-2. Open BRAT settings and click **Add Beta plugin**.
-3. Enter `Rbm3267/obsidian-vaultos`.
-4. Enable **VaultOS** under Community Plugins.
+### Community Plugins
+1. Open **Settings** → **Community plugins**.
+2. Turn off **Restricted mode**.
+3. Search for **VaultOS**.
+4. Select **Install**, then **Enable**.
 
 ### Manual Installation
 1. Download `manifest.json`, `main.js`, and `styles.css` from the latest [Release](https://github.com/Rbm3267/obsidian-vaultos/releases).
-2. Create a folder named `vaultos` inside your vault's `.obsidian/plugins/` directory.
-3. Copy the downloaded files into `.obsidian/plugins/vaultos/`.
-4. Reload Obsidian and enable **VaultOS** in Settings > Community Plugins.
+2. Create a folder named `vaultos` inside `.obsidian/plugins/` in your vault.
+3. Move the downloaded files into `.obsidian/plugins/vaultos/`.
+4. Reload Obsidian and turn on **VaultOS** under **Community plugins**.
 
 ---
 
-## ⚙️ Configuration
+## Configuration
 
-Open **Settings > VaultOS**:
-- Choose your **Default AI Provider** (Gemini, Claude, OpenAI, or Ollama).
-- Enter your API Key or local endpoint.
-- Customize your Workstreams folder and startup behavior.
+In **Settings** → **VaultOS**:
+- Choose your default AI provider.
+- Enter your API key or local Ollama address.
+- Set your preferred project folder and startup options.
 
 ---
 
-## 🛠️ Development
+## Development
 
 ```bash
-# Clone the repository
 git clone https://github.com/Rbm3267/obsidian-vaultos.git
 cd obsidian-vaultos
-
-# Install dependencies
 npm install
-
-# Start development build with hot reload
-npm run dev
-
-# Production build
-npm run build
+npm run dev    # watch build
+npm run build  # production build
 ```
 
 ---
 
-## 📄 License
+## License
 
 MIT License © 2026 [XD Labs](https://xdlabs.io) / Bennett Moore.

@@ -1,7 +1,7 @@
 {
   "name": "obsidian-vaultos",
   "version": "1.0.0",
-  "description": "Executive workspace operating system, customizable bento dashboard, telemetry, and non-blocking multi-model AI assistant for Obsidian.",
+  "description": "Customizable bento dashboard, vault telemetry, quick actions, and built-in AI assistant for Obsidian.",
   "main": "main.js",
   "scripts": {
     "dev": "node esbuild.config.mjs",
