@@ -1,7 +1,7 @@
 import { ItemView, WorkspaceLeaf, TFile, setIcon } from 'obsidian';
 import { VaultOSSettings, TaskItem, WorkstreamItem } from './types';
 import { AIService } from './ai-service';
-import { getMarkdownFilesUnderFolder, countMarkdownNotes, copyText } from './vault-utils';
+import { getMarkdownFilesUnderFolder, countMarkdownNotes } from './vault-utils';
 
 export const VIEW_TYPE_VAULTOS = 'vaultos-dashboard';
 
@@ -105,9 +105,10 @@ export class VaultOSView extends ItemView {
         const actionsRow = aiResponseContainer.createDiv({ cls: 'vaultos-ai-actions' });
         const copyBtn = actionsRow.createEl('button', { cls: 'vaultos-btn-sm', text: 'Copy' });
         copyBtn.addEventListener('click', () => {
-          copyText(result);
-          copyBtn.setText('Copied!');
-          window.setTimeout(() => copyBtn.setText('Copy'), 1500);
+          void navigator.clipboard.writeText(result).then(() => {
+            copyBtn.setText('Copied!');
+            window.setTimeout(() => copyBtn.setText('Copy'), 1500);
+          });
         });
 
         const insertBtn = actionsRow.createEl('button', { cls: 'vaultos-btn-sm', text: 'Insert into active note' });

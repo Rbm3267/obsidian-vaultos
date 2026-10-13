@@ -46,26 +46,3 @@ export function countMarkdownNotes(vault: Vault): number {
   countInFolder(root);
   return count;
 }
-
-/**
- * Copies plain text to user system buffer via standard textarea execution.
- */
-export function copyText(text: string): boolean {
-  const el = document.createElement('textarea');
-  el.value = text;
-  el.setAttribute('readonly', '');
-  el.style.position = 'fixed';
-  el.style.left = '-9999px';
-  el.style.top = '-9999px';
-  document.body.appendChild(el);
-  el.select();
-  let success = false;
-  try {
-    success = document.execCommand('copy');
-  } catch (err) {
-    success = false;
-  } finally {
-    document.body.removeChild(el);
-  }
-  return success;
-}
