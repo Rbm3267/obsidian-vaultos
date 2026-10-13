@@ -1,6 +1,7 @@
 import { ItemView, WorkspaceLeaf, TFile, setIcon } from 'obsidian';
 import { VaultOSSettings, TaskItem, WorkstreamItem } from './types';
 import { AIService } from './ai-service';
+import { getMarkdownFilesUnderFolder, countMarkdownNotes, copyText } from './vault-utils';
 
 export const VIEW_TYPE_VAULTOS = 'vaultos-dashboard';
 
@@ -104,10 +105,9 @@ export class VaultOSView extends ItemView {
         const actionsRow = aiResponseContainer.createDiv({ cls: 'vaultos-ai-actions' });
         const copyBtn = actionsRow.createEl('button', { cls: 'vaultos-btn-sm', text: 'Copy' });
         copyBtn.addEventListener('click', () => {
-          void navigator.clipboard.writeText(result).then(() => {
-            copyBtn.setText('Copied!');
-            window.setTimeout(() => copyBtn.setText('Copy'), 1500);
-          });
+          copyText(result);
+          copyBtn.setText('Copied!');
+          window.setTimeout(() => copyBtn.setText('Copy'), 1500);
         });
 
         const insertBtn = actionsRow.createEl('button', { cls: 'vaultos-btn-sm', text: 'Insert into active note' });
@@ -245,14 +245,24 @@ export class VaultOSView extends ItemView {
   }
 
   private async getNotesCount(): Promise<number> {
-    return this.app.vault.getMarkdownFiles().length;
+    return countMarkdownNotes(this.app.vault);
   }
 
   private async getOpenTasks(): Promise<TaskItem[]> {
-    const files = this.app.vault.getMarkdownFiles();
+    const targetFolders = [
+      this.settings.workstreamsFolder || 'Projects',
+      'Accounts',
+      'Daily',
+      '00_Inbox',
+    ];
+    const candidateFiles: TFile[] = [];
+    for (const f of targetFolders) {
+      candidateFiles.push(...getMarkdownFilesUnderFolder(this.app.vault, f));
+    }
+
     const tasks: TaskItem[] = [];
 
-    for (const file of files) {
+    for (const file of candidateFiles) {
       if (file.path.startsWith('.') || file.path.includes('archive/')) continue;
       const content = await this.app.vault.cachedRead(file);
       const lines = content.split('\n');
@@ -288,7 +298,9 @@ export class VaultOSView extends ItemView {
 
   private async getWorkstreams(): Promise<WorkstreamItem[]> {
     const folder = this.settings.workstreamsFolder || 'Projects';
-    const files = this.app.vault.getMarkdownFiles().filter(f => f.path.startsWith(folder) || f.path.startsWith('Accounts/'));
+    const projectFiles = getMarkdownFilesUnderFolder(this.app.vault, folder);
+    const accountFiles = getMarkdownFilesUnderFolder(this.app.vault, 'Accounts');
+    const files = [...projectFiles, ...accountFiles];
     
     return files.slice(0, 10).map(f => {
       return {
