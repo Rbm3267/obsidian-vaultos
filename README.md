@@ -2,12 +2,14 @@
 
 A customizable bento dashboard, workspace telemetry, and multi-model AI assistant for Obsidian.
 
+[xdlabs.io/work/vaultos](https://www.xdlabs.io/work/vaultos) · [GitLab](https://gitlab.com/xdlabs-io/vaultos) · Companion plugin: [VaultFlow](https://gitlab.com/xdlabs-io/vaultflow)
+
 [![Obsidian Plugin](https://img.shields.io/badge/Obsidian-Plugin-7C3AED?logo=obsidian&logoColor=white)](https://obsidian.md)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 
 VaultOS adds a dashboard homepage to your vault. It displays your notes, active projects, open tasks, and quick navigation in a clean bento layout, with an integrated AI assistant supporting Gemini, Claude, OpenAI, and local Ollama models.
 
-![VaultOS Bento Dashboard Overview](./screenshot_1280x800.svg)
+![VaultOS Bento Dashboard Overview](./screenshot-light.webp)
 
 ---
 
@@ -34,7 +36,7 @@ VaultOS adds a dashboard homepage to your vault. It displays your notes, active 
 4. Select **Install**, then **Enable**.
 
 ### Manual Installation
-1. Download `manifest.json`, `main.js`, and `styles.css` from the latest [Release](https://github.com/Rbm3267/obsidian-vaultos/releases).
+1. Download `manifest.json`, `main.js`, and `styles.css` from the latest [GitLab Release](https://gitlab.com/xdlabs-io/vaultos/-/releases) (or build from source below).
 2. Create a folder named `vaultos` inside `.obsidian/plugins/` in your vault.
 3. Move the downloaded files into `.obsidian/plugins/vaultos/`.
 4. Reload Obsidian and turn on **VaultOS** under **Community plugins**.
@@ -53,8 +55,8 @@ In **Settings** → **VaultOS**:
 ## Development
 
 ```bash
-git clone https://github.com/Rbm3267/obsidian-vaultos.git
-cd obsidian-vaultos
+git clone https://gitlab.com/xdlabs-io/vaultos.git
+cd vaultos
 npm install
 npm run dev    # watch build
 npm run build  # production build
